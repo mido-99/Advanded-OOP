@@ -1,0 +1,19 @@
+An app that gets bill amount for a period and the period each flatmate stayed in house in that period. Then calculates how much each flatmate should pay.
+It generates a PDF file with flatmates' names, period, and the amount each one had to pay.
+
+
+	Bill 
+		amount
+		period
+	Flatmate
+		name
+		time stayed at home
+		pays(bill) + time at home
+	PDF
+		flatmates' names
+		generate(names, pay)
+
+		
+x + rt x = bill.amount
+x = bill.amount / (1+rt)
+pay = x * rt
