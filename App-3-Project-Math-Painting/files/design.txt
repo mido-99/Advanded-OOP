@@ -20,3 +20,28 @@ Objects: Square:
             height
             color
             make(imagepath)
+			
+			
+## My Design ##
+Title: Drawing over a canvas
+Description: An app that draws shapes on a canvas; like square and rectangle. it takes the square's side length from the user, the width and height of a rectangle. and the starting point for drawing them (coordinates). and then draws them with a special color on a canvas which is either white or black.
+
+Objects:
+	Canvas
+		width
+		height
+		color
+		make()
+	Square
+		color
+		side length
+		x
+		y
+		draw()
+	Rectangle
+		color
+		width
+		height
+		x
+		y
+		draw()
