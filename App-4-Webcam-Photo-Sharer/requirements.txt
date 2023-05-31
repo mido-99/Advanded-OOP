@@ -9,3 +9,4 @@ Pygments
 requests
 trafaret
 urllib3
+wikipedia
