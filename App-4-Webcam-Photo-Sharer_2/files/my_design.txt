@@ -1,0 +1,8 @@
+Description:
+An app that has 2 screens. In the first one; the user can press a button to start recording a video from the device camera. And another button which when pressed; captures the current video frame and goes to the next screen.
+The other screen shows the captured image, and 3 buttons; one to create a sharable link for the image, which shows the link in an invisible label. The other 2 buttons are to copy and open it.
+Brief:
+An app that records a video from the computer camera, captures a photo, and uploads it on the internet and creates a  sharable link
+Objects:
+	WebCam:
+		record()

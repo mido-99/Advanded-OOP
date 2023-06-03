@@ -1,7 +1,7 @@
 import webbrowser
 from fpdf import FPDF
 from my_funcs import confirm_no_empty_str, confirm_input_is_number
-from utility import Bill, Flatmate, PdfReport
+from utility import Bill, Flatmate, PdfReport, FileSharer
 
 ## CLI app ##
 
@@ -26,13 +26,16 @@ while True:
     want_report = input("So do you want a pdf report for this month? (y/n): ")
 
     if want_report in ["y", "Y", "Yes", "yes", "YES"]:
-        print("Sure! We have created it for you.")
-        pdf= PdfReport(filename=f'{bill.period} bill.pdf')
+        print("Sure! We have created a pdf report and uploaded it for you. Here's its link:")
+        pdf_path = f'files\{bill.period} bill.pdf'
+        pdf= PdfReport(filename = pdf_path)
         pdf.generate(user1, user2, bill=bill)
+        filelink = FileSharer(pdf_path)
+        print(filelink.share())
         
     elif want_report in ["N", 'n', "NO", 'no', "No"]:
         print("Ok. Thank you for using this simple app & have a good day!")
-    
+        
     else:
         print("Please enter a valid value!")
         continue
