@@ -27,11 +27,14 @@ class VidScreen(Screen):
         # capture frame with current time, reset btn text to original
         self.ids.cap_btn.text = "Captured!"
         curr_time = time.strftime("%Y-%m-%d_%H;%M;%S")
-        print(curr_time)
-        self.ids['camera'].export_to_png(f"output\{curr_time}.png")
+        img_path = f"output\{curr_time}.png" 
+        self.ids.camera.export_to_png(img_path)
         Clock.schedule_once(lambda dt : setattr(self.ids.cap_btn, 'text', "Capture image"), 1)
+        # Switch to anothe Screen:
+        self.manager.current = "img_screen" #*
+        return img_path
 
-class CamScreen(Screen):
+class ImgScreen(Screen):
     pass
 
 class RootWidget(ScreenManager):
@@ -43,3 +46,10 @@ class MainApp(App):
         return RootWidget()
 
 MainApp().run()
+
+
+"""
+#########################################################
+#* NOTE that in screen switching; we use screen NAME. NOT id and not class
+
+"""

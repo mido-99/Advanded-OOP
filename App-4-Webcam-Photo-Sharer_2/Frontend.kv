@@ -19,11 +19,33 @@
             size_hint_y: 0.1
             on_press: root.capture()
 
+<ImgScreen>:
+    GridLayout:
+        cols:1
+        Image:
+            id: cap_image
+        Button:
+            size_hint_y: 0.15
+            id: create_link
+            text: "Create sharable link"
+        Label:
+            size_hint_y: 0.15
+            id: label_link
+        GridLayout:
+            cols:2
+            size_hint_y: 0.2
+            Button:
+                text: "Copy"
+                id: copy_link
+            Button:
+                text: "Open link"
+                id: open_link
 
-# <CamScreen>:
-#     GridLayout:
 
 <RootWidget>:
     VidScreen:
         id: vid_screen
         name: "vid_screen"
+    ImgScreen:
+        id: img_screen
+        name: "img_screen"
