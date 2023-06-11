@@ -2,6 +2,7 @@ from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
 from kivy.core.window import Window
+from kivy.clock import Clock, time
 
 # from filesharer import FileSharer
 
@@ -10,19 +11,25 @@ Builder.load_file("frontend.kv")
 class VidScreen(Screen):
 
     def record(self):
+        # start recording, change background to red
         self.ids.camera.play = True
-        print(self.ids.record_btn.background_color)
         self.ids.record_btn.background_color = (100, 0, 0, 1)
         self.ids.record_btn.text = "Stop"
         
     def stop(self):
+        # stop recording, change background to normal, set frame to black
         self.ids.camera.play = False
         self.ids.record_btn.background_color = (1, 1, 1, 1)
         self.ids.camera.texture = None
         self.ids.record_btn.text = "Start Recording"
-
+        
     def capture(self):
-        pass
+        # capture frame with current time, reset btn text to original
+        self.ids.cap_btn.text = "Captured!"
+        curr_time = time.strftime("%Y-%m-%d_%H;%M;%S")
+        print(curr_time)
+        self.ids['camera'].export_to_png(f"output\{curr_time}.png")
+        Clock.schedule_once(lambda dt : setattr(self.ids.cap_btn, 'text', "Capture image"), 1)
 
 class CamScreen(Screen):
     pass
