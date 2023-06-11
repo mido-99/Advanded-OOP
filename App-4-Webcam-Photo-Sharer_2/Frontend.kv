@@ -1,0 +1,29 @@
+<VidScreen>:
+    GridLayout:
+        cols: 1
+        padding: 5
+        spacing: 5
+        Camera:
+            id: camera
+            resolutions: (640, 480)
+            # play: True
+            play: False
+        Button:
+            id: record_btn
+            text: "Start Recording"
+            size_hint_y: 0.1
+            on_press: root.record() if root.ids.camera.play == False else root.stop()
+        Button:
+            id: cap_btn
+            text: "Capture image"
+            size_hint_y: 0.1
+            on_press: root.Capture()
+
+
+# <CamScreen>:
+#     GridLayout:
+
+<RootWidget>:
+    VidScreen:
+        id: vid_screen
+        name: "vid_screen"
