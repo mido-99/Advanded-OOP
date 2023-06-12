@@ -1,10 +1,12 @@
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.lang import Builder
 from kivy.core.window import Window
+from kivy.core.clipboard import Clipboard
 from kivy.clock import Clock, time
+import webbrowser
 
-# from filesharer import FileSharer
+from filesharer import FileSharer
 
 Builder.load_file("frontend.kv")
 
@@ -24,18 +26,41 @@ class VidScreen(Screen):
         self.ids.record_btn.text = "Start Recording"
         
     def capture(self):
+        '''Create and save an image with current time as its name'''
         # capture frame with current time, reset btn text to original
         self.ids.cap_btn.text = "Captured!"
         curr_time = time.strftime("%Y-%m-%d_%H;%M;%S")
-        img_path = f"output\{curr_time}.png" 
-        self.ids.camera.export_to_png(img_path)
+        self.img_path = f"output\{curr_time}.png" #****
+        self.ids.camera.export_to_png(self.img_path)
         Clock.schedule_once(lambda dt : setattr(self.ids.cap_btn, 'text', "Capture image"), 1)
-        # Switch to anothe Screen:
+        
+        # Switch to anothe Screen & add the image to its widget:
+        self.manager.transition = SlideTransition(direction="right")
         self.manager.current = "img_screen" #*
-        return img_path
+        self.manager.current_screen.ids.cap_image.source = self.img_path #**
+        self.manager.current_screen.ids.label_link.text = ""
 
 class ImgScreen(Screen):
-    pass
+    def create_link(self):
+        '''Create a sharable link for the image and adds it to the label widget'''
+        self.ids.label_link.text = "Hold on..."
+        
+        img_path = App.get_running_app().root.ids.vid_screen.img_path #***
+        FileShare = FileSharer(img_path)
+        img_link = FileShare.share()
+        
+        self.ids.label_link.text = img_link
+        
+    def copy_link(self):
+        Clipboard.copy(self.ids.label_link.text)
+        
+    def open_link(self): 
+        link = self.ids.label_link.text
+        webbrowser.open(link)
+        
+    def go_back(self):
+        self.manager.transition = SlideTransition(direction="left")
+        self.manager.current = "vid_screen"
 
 class RootWidget(ScreenManager):
     pass
@@ -51,5 +76,11 @@ MainApp().run()
 """
 #########################################################
 #* NOTE that in screen switching; we use screen NAME. NOT id and not class
+
+#** To set the image of a an image widget dynamically, we don't assign its value in the kv file, But instead after Screen switching (in the function). And note that here we're using manager.current_screen.ids... not self.ids directly; As self.ids is all about widgets of the current class in which methods are being defined.
+
+#*** root refers to the root widget of your app, hence you can access other children screens by ids
+
+#**** self is used to make it a class variable not just local for this method; so that I can retrieve this value later by just accessing theis instance.
 
 """

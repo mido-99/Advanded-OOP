@@ -28,18 +28,26 @@
             size_hint_y: 0.15
             id: create_link
             text: "Create sharable link"
+            on_press: root.create_link()
         Label:
-            size_hint_y: 0.15
             id: label_link
+            size_hint_y: 0.15
         GridLayout:
-            cols:2
-            size_hint_y: 0.2
+            cols:3
+            size_hint_y: 0.15
+            Button:
+                size_hint_x: 0.25
+                text: "< Back"
+                id: back_btn
+                on_press: root.go_back()
             Button:
                 text: "Copy"
                 id: copy_link
+                on_press: root.copy_link()
             Button:
                 text: "Open link"
                 id: open_link
+                on_press: root.open_link()
 
 
 <RootWidget>:
