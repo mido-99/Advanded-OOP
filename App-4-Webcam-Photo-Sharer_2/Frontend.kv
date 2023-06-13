@@ -22,31 +22,35 @@
 <ImgScreen>:
     GridLayout:
         cols:1
+        padding: 3
+        spacing: 3
         Image:
             id: cap_image
         Button:
-            size_hint_y: 0.15
             id: create_link
+            size_hint_y: 0.1
             text: "Create sharable link"
             on_press: root.create_link()
         Label:
             id: label_link
-            size_hint_y: 0.15
+            size_hint_y: 0.1
         GridLayout:
             cols:3
-            size_hint_y: 0.15
+            size_hint_y: 0.1
+            padding: 3
+            # spacing: 5
             Button:
+                id: back_btn
                 size_hint_x: 0.25
                 text: "< Back"
-                id: back_btn
                 on_press: root.go_back()
             Button:
-                text: "Copy"
                 id: copy_link
+                text: "Copy"
                 on_press: root.copy_link()
             Button:
-                text: "Open link"
                 id: open_link
+                text: "Open link"
                 on_press: root.open_link()
 
 

@@ -47,16 +47,23 @@ class ImgScreen(Screen):
         
         img_path = App.get_running_app().root.ids.vid_screen.img_path #***
         FileShare = FileSharer(img_path)
-        img_link = FileShare.share()
+        self.url = FileShare.share()
         
-        self.ids.label_link.text = img_link
+        self.ids.label_link.text = self.url
         
     def copy_link(self):
-        Clipboard.copy(self.ids.label_link.text)
-        
-    def open_link(self): 
-        link = self.ids.label_link.text
-        webbrowser.open(link)
+        try: #*5
+            Clipboard.copy(self.url)
+        except:
+            self.ids.label_link.text = "Create a link first!"
+
+    def open_link(self):
+        try:
+            link = self.url
+            webbrowser.open(link)
+        except:
+            self.ids.label_link.text = "Create a link first!"
+
         
     def go_back(self):
         self.manager.transition = SlideTransition(direction="left")
@@ -77,10 +84,17 @@ MainApp().run()
 #########################################################
 #* NOTE that in screen switching; we use screen NAME. NOT id and not class
 
-#** To set the image of a an image widget dynamically, we don't assign its value in the kv file, But instead after Screen switching (in the function). And note that here we're using manager.current_screen.ids... not self.ids directly; As self.ids is all about widgets of the current class in which methods are being defined.
+#*2 To set the image of a an image widget dynamically, we don't assign its value in the kv file, But instead after Screen switching (in the function). And note that here we're using manager.current_screen.ids... not self.ids directly; As self.ids is all about widgets of the current class in which methods are being defined.
 
-#*** root refers to the root widget of your app, hence you can access other children screens by ids
+#*3 root refers to the root widget of your app, hence you can access other children screens by ids
 
-#**** self is used to make it a class variable not just local for this method; so that I can retrieve this value later by just accessing theis instance.
+#*4 self is used to make it a class variable not just local for this method; so that I can retrieve this value later by just accessing theis instance.
+
+#*5 Why we use try-except insteas of if statement: if we use if like this
+if not self.url:
+    self.ids.label_link.text = "Create a link first!"
+else:
+    Clipboard.copy(self.url)
+#*5 The problem is that if user hasn't created a link yet; there's no actual self.url attr. so this error will be raised  AttributeError: 'ImgScreen' object has no attribute 'url'. Hence it should be handled using try-except.
 
 """
