@@ -5,7 +5,6 @@ from kivy.core.window import Window
 from kivy.core.clipboard import Clipboard
 from kivy.clock import Clock, time
 import webbrowser
-
 from filesharer import FileSharer
 
 Builder.load_file("frontend.kv")
@@ -13,15 +12,15 @@ Builder.load_file("frontend.kv")
 class VidScreen(Screen):
 
     def record(self):
-        # start recording, change background to red
+        # start video recording:
+        self.ids.camera.opacity = 1
         self.ids.camera.play = True
-        self.ids.record_btn.background_color = (100, 0, 0, 1)
         self.ids.record_btn.text = "Stop"
         
     def stop(self):
-        # stop recording, change background to normal, set frame to black
+        # stop recording, set frame to black:
+        self.ids.camera.opacity = 0
         self.ids.camera.play = False
-        self.ids.record_btn.background_color = (1, 1, 1, 1)
         self.ids.camera.texture = None
         self.ids.record_btn.text = "Start Recording"
         
@@ -30,22 +29,23 @@ class VidScreen(Screen):
         # capture frame with current time, reset btn text to original
         self.ids.cap_btn.text = "Captured!"
         curr_time = time.strftime("%Y-%m-%d_%H;%M;%S")
-        self.img_path = f"output\{curr_time}.png" #****
+        self.img_path = f"output\{curr_time}.png" #*4
         self.ids.camera.export_to_png(self.img_path)
         Clock.schedule_once(lambda dt : setattr(self.ids.cap_btn, 'text', "Capture image"), 1)
         
         # Switch to anothe Screen & add the image to its widget:
         self.manager.transition = SlideTransition(direction="right")
         self.manager.current = "img_screen" #*
-        self.manager.current_screen.ids.cap_image.source = self.img_path #**
+        self.manager.current_screen.ids.cap_image.source = self.img_path #*2
         self.manager.current_screen.ids.label_link.text = ""
 
 class ImgScreen(Screen):
+    
     def create_link(self):
         '''Create a sharable link for the image and adds it to the label widget'''
         self.ids.label_link.text = "Hold on..."
         
-        img_path = App.get_running_app().root.ids.vid_screen.img_path #***
+        img_path = App.get_running_app().root.ids.vid_screen.img_path #*3
         FileShare = FileSharer(img_path)
         self.url = FileShare.share()
         
@@ -66,6 +66,7 @@ class ImgScreen(Screen):
 
         
     def go_back(self):
+        '''Go back to the Video Screen'''
         self.manager.transition = SlideTransition(direction="left")
         self.manager.current = "vid_screen"
 

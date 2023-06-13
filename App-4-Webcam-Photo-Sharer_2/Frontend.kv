@@ -5,19 +5,24 @@
         spacing: 5
         Camera:
             id: camera
-            resolutions: (640, 480)
-            # play: True
+            resolutions: (620, 480)
+            opacity: 0
             play: False
         Button:
             id: record_btn
             text: "Start Recording"
             size_hint_y: 0.1
             on_press: root.record() if root.ids.camera.play == False else root.stop()
+            #*
+            background_normal: "images/normal.png" 
+            background_down: "images/down.png"
         Button:
             id: cap_btn
             text: "Capture image"
             size_hint_y: 0.1
             on_press: root.capture()
+            background_normal: "images/normal.png" 
+            background_down: "images/down.png"
 
 <ImgScreen>:
     GridLayout:
@@ -31,6 +36,8 @@
             size_hint_y: 0.1
             text: "Create sharable link"
             on_press: root.create_link()
+            background_normal: "images/normal.png" 
+            background_down: "images/down.png"
         Label:
             id: label_link
             size_hint_y: 0.1
@@ -41,23 +48,39 @@
             # spacing: 5
             Button:
                 id: back_btn
-                size_hint_x: 0.25
+                size_hint_x: 0.3
                 text: "< Back"
                 on_press: root.go_back()
+                background_normal: "images/normal.png" 
+                background_down: "images/down.png"
             Button:
                 id: copy_link
                 text: "Copy"
                 on_press: root.copy_link()
+                background_normal: "images/normal.png" 
+                background_down: "images/down.png"
             Button:
                 id: open_link
                 text: "Open link"
                 on_press: root.open_link()
+                background_normal: "images/normal.png" 
+                background_down: "images/down.png"
 
 
 <RootWidget>:
+    # Cange background color: #*2
+    canvas.before:
+        Color:
+            rgba: (0.2, 0.2, 0.5, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
     VidScreen:
         id: vid_screen
         name: "vid_screen"
     ImgScreen:
         id: img_screen
         name: "img_screen"
+
+#* Note: Use forward slash (/) in kv paths
+#*2: To change the background_color; we do like draw a rect on the background withe the color we want to set, with pos and size equal to the default values
