@@ -1,0 +1,19 @@
+h1 {
+    margin-bottom: 50px;
+    text-align: center   
+}
+
+p {
+    font-size: 20px;
+    text-align: center;
+}
+
+a {
+    margin: 40px;
+    display: block; /*1*/
+    text-align: center;
+    font-size: 28px;
+
+}
+
+/*1 By default; a tag is an inline element, meaning one can't align-text it or other stuff that are correlated to block elements, so we write this line first */

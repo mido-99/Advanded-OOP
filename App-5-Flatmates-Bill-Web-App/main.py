@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask.views import MethodView
 from wtforms import Form
 
@@ -7,7 +7,7 @@ app = Flask(__name__)
 class HomePage(MethodView):
     
     def get(self):
-        return "Hello! Home Page"
+        return render_template("index.html")
 
 class BillPage(MethodView):
     def get(self):

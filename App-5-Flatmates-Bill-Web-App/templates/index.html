@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Flatmates' Bill</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> <!--*-->
+</head>
+<body>
+    <h1>Flatmates' Bill</h1>
+    <p>This app can help you calculate how much your flatmate and you should pay for your flat bill.</p>
+    <a href="{{ url_for('bill_page') }}">Start Calculation</a> <!--**-->
+</body>
+</html>
+
+<!--* Note that here we use normal slashes, also names should be in quotes -->
+<!--** NOTE that we use class name in as_view() method and not its original name -->
