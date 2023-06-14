@@ -1,25 +1,44 @@
-from flatmates_bill.flat import Bill, Flatmate
-from flatmates_bill.reports import PdfReport, FileSharer
+import webbrowser
+from fpdf import FPDF
+from my_funcs import confirm_no_empty_str, confirm_input_is_number
+from utility import Bill, Flatmate, PdfReport
+from filesharer import FileSharer
 
-amount = float(input("Hey user, enter the bill amount: "))
-period = input("What is the bill period? E.g. December 2020: ")
+## CLI app ##
 
-name1 = input("What is your name? ")
-days_in_house1 = int(input(f"How many days did {name1} stay in the house during the bill period? "))
+# getting inputs from the user
+user1_name = confirm_no_empty_str("Hey! This app will help you to calculate how much you should pay for your flat bill.\nCould you enter your name please: ")
+user2_name = confirm_no_empty_str("Your flatmate's name too please: ")
+bill_period = confirm_no_empty_str("And for which month? (ex:- May 2023): ")
 
-name2 = input("What is the name of the other flatmate? ")
-days_in_house2 = int(input(f"How many days did {name2} stay in the house during the bill period? "))
+bill_amount = confirm_input_is_number("So, How much is your bill? ")
+user_period = confirm_input_is_number("OK, How many days have you been in the house in that period? ")
+flatmate_period = confirm_input_is_number("And how many days for your flatmate? ")
 
+# creating instances out of data provided
+user1 = Flatmate(user1_name, user_period)
+user2 = Flatmate(user2_name, flatmate_period)
+bill = Bill(bill_period, bill_amount)
+user_pay = user1.pays(bill=bill, flatmate_2=user2)
+print(f"\nWell well... Here's your pay for this month!... {user_pay} And your flatmate should pay {bill.amount-user_pay}\n")
 
-the_bill = Bill(amount, period)
-flatmate1 = Flatmate(name1, days_in_house1)
-flatmate2 = Flatmate(name2, days_in_house2)
+# If user wants a pdf report
+while True:
+    want_report = input("So do you want a pdf report for this month? (y/n): ")
 
-print(f"{flatmate1.name} pays: ", flatmate1.pays(the_bill, flatmate2))
-print(f"{flatmate2.name} pays: ", flatmate2.pays(the_bill, flatmate1))
+    if want_report in ["y", "Y", "Yes", "yes", "YES"]:
+        print("Sure! We have created a pdf report and uploaded it for you. Here's its link:")
+        pdf_path = f'files\{bill.period} bill.pdf'
+        pdf= PdfReport(filename = pdf_path)
+        pdf.generate(user1, user2, bill=bill)
+        filelink = FileSharer(pdf_path)
+        print(filelink.share())
+        
+    elif want_report in ["N", 'n', "NO", 'no', "No"]:
+        print("Ok. Thank you for using this simple app & have a good day!")
+        
+    else:
+        print("Please enter a valid value!")
+        continue
+    break
 
-pdf_report = PdfReport(filename=f"{the_bill.period}.pdf")
-pdf_report.generate(flatmate1, flatmate2, the_bill)
-
-file_sharer = FileSharer(filepath=pdf_report.filename)
-print(file_sharer.share())

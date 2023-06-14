@@ -10,3 +10,4 @@ requests
 trafaret
 urllib3
 opencv-python
+python-dotenv

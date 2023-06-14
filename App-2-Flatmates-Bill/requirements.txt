@@ -6,3 +6,4 @@ idna
 requests
 trafaret
 urllib3
+python-dotenv
