@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bill Form</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bill_form.css') }}"> -->
+</head>
+<body>
+    <h2>
+        The Bill Form
+    </h2>
+    <p>Fill this form then press calculate</p>
+    <form action="/result" method="post">
+        {{bill_form.amount.label}} {{bill_form.amount}}
+        <br>
+        {{bill_form.period.label}} {{bill_form.period}}
+        <p>First flatmate</p>
+        {{bill_form.name_1.label}} {{bill_form.name_1}}
+        <br>
+        {{bill_form.days_1.label}} {{bill_form.days_1}}
+        <p>Secode flatmate</p>
+        {{bill_form.name_2.label}} {{bill_form.name_2}}
+        <br>
+        {{bill_form.days_2.label}} {{bill_form.days_2}}
+        {{bill_form.button}}
+    </form>
+</body>
+</html>
