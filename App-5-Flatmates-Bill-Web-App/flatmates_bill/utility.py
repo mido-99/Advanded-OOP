@@ -5,7 +5,7 @@ class Bill():
     
     def __init__(self, period, amount):
         self.period = period
-        self.amount = amount
+        self.amount = int(amount)
         
 class Flatmate():
     '''Typically representing a person who shares a room and the bill'''
@@ -16,7 +16,7 @@ class Flatmate():
         
     # calculate each flatmate's pay
     def pays(self, bill, flatmate_2):
-        ratio = self.time_at_home / (self.time_at_home + flatmate_2.time_at_home)
+        ratio = int(self.time_at_home) / (int(self.time_at_home) + int(flatmate_2.time_at_home))
         pay = round(ratio * bill.amount, 2)
         return pay
 

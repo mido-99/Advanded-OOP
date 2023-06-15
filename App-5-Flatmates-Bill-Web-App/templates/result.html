@@ -3,8 +3,13 @@
 <head>
     <meta charset="utf-8">
     <title>The result</title>
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
 </head>
 <body>
-    <h1>Hello</h1>
+    <div>
+        <h2>Result</h2>
+        {{name1}} pays {{amount1}}
+        <br> <br>
+        {{name2}} pays {{amount2}}
+    </div>
 </body>
