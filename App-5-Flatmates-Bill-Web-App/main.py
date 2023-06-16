@@ -15,8 +15,6 @@ class BillPage(MethodView):
     def get(self):
         bill_form = BillForm()
         return render_template("bill_form.html", bill_form=bill_form)
-
-class ResultPage(MethodView): #*2
     
     def post(self):
         bill_form = BillForm(request.form)
@@ -26,11 +24,30 @@ class ResultPage(MethodView): #*2
         flatmate1 = utility.Flatmate(bill_form.name_1.data, bill_form.days_1.data)
         flatmate2 = utility.Flatmate(bill_form.name_2.data, bill_form.days_2.data)
         
-        return render_template('result.html',
+        return render_template('bill_form.html',
+                                bill_form=bill_form,
+                                result = True,
                                 name1 = flatmate1.name,
                                 amount1 = flatmate1.pays(bill, flatmate2),
                                 name2 = flatmate2.name,
                                 amount2 = flatmate2.pays(bill, flatmate1))
+
+
+# class ResultPage(MethodView): #*2
+    
+#     def post(self):
+#         bill_form = BillForm(request.form)
+        
+#         # Processing the user data
+#         bill = utility.Bill(bill_form.period.data, bill_form.amount.data)
+#         flatmate1 = utility.Flatmate(bill_form.name_1.data, bill_form.days_1.data)
+#         flatmate2 = utility.Flatmate(bill_form.name_2.data, bill_form.days_2.data)
+        
+#         return render_template('result.html',
+#                                 name1 = flatmate1.name,
+#                                 amount1 = flatmate1.pays(bill, flatmate2),
+#                                 name2 = flatmate2.name,
+#                                 amount2 = flatmate2.pays(bill, flatmate1))
 
 class BillForm(Form): #*
     amount = StringField('Amount:')
@@ -43,7 +60,7 @@ class BillForm(Form): #*
 
 app.add_url_rule('/', view_func=HomePage.as_view("home_page"))
 app.add_url_rule('/bill', view_func=BillPage.as_view("bill_form"))
-app.add_url_rule('/result', view_func=ResultPage.as_view("result_page"))
+# app.add_url_rule('/result', view_func=ResultPage.as_view("result_page"))
 
 
 app.run(debug=True)
@@ -67,5 +84,10 @@ So to tell Flask to treat this class as a func we write app.add_url_rule()
 2. in the python class for that route, def post() not get and create an object of the form but NOTE this time pass to it request.form
 3. Now we have the form data! and the way we access any of its field is: form_name.form_class_var.data
 
-
+#*3 To view the rusult in the same page:
+1. Change the form action=<same_page> 
+2. Comment the add_rule for that route (as it's no more needed)
+3. Now when the button is pressed, a POST request is sent to the server so we need to define a post() for this page. Fortunately; it does the same as the deprecated page so we can just copy its code and paste it
+#! Dont't forget to return the smae .html file and also define any variable that's not defined in the render_template(new.html, var=var) )
+4. 
 """

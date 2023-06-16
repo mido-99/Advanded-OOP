@@ -10,7 +10,7 @@
         The Bill Form
     </h2>
     <h3>Fill this form then press calculate</h3>
-    <form action="/result" method="post">
+    <form action="/bill" method="post">
         {{bill_form.amount.label}} {{bill_form.amount}}
         <br>
         {{bill_form.period.label}} {{bill_form.period}}
@@ -25,5 +25,20 @@
         <br><br>
         {{bill_form.button}}
     </form>
+    <br>
+    {% if result %} 
+    <div>
+        {{name1}} pays {{amount1}}
+        <br> <br>
+        {{name2}} pays {{amount2}}
+    </div>
+    {% endif %}
 </body>
 </html>
+
+<!-- 
+    {% if result %}
+    <elements>
+    {% endif %}
+# This trick enables us to add some elements to the page depending on a condition in the python code, so if that var is True for ex, adds this part of code. Otherwise it will be ignored.
+-->
