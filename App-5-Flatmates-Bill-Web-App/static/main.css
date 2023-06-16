@@ -1,19 +1,26 @@
 h1 {
     padding-bottom: 50px;
-    text-align: center   
+    text-align: center;   
+    color: #DF2E38;
 }
 
 p {
     font-size: 20px;
     text-align: center;
+    color: #c7393d;
 }
 
 a {
     padding: 40px;
     display: block; /*1*/
+    color: #DF2E38;
     text-align: center;
     font-size: 28px;
 
+}
+
+body {
+    background-color: #E9EDC9;
 }
 
 /*1 By default; a tag is an inline element, meaning one can't align-text it or other stuff that are correlated to block elements, so we write this line first */

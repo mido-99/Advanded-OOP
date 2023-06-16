@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <title>Bill Form</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bill_form.css') }}">
+    <link rel="stylesheet" href="static/bill_form.css">
 </head>
 <body>
     <h2>
         The Bill Form
     </h2>
-    <p>Fill this form then press calculate</p>
+    <h3>Fill this form then press calculate</h3>
     <form action="/result" method="post">
         {{bill_form.amount.label}} {{bill_form.amount}}
         <br>
@@ -22,6 +22,7 @@
         {{bill_form.name_2.label}} {{bill_form.name_2}}
         <br>
         {{bill_form.days_2.label}} {{bill_form.days_2}}
+        <br><br>
         {{bill_form.button}}
     </form>
 </body>

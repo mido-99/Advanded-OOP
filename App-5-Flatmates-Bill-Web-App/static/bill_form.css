@@ -1,0 +1,38 @@
+body{
+    padding: 5px;
+    text-align: center;
+    background-color: #E9EDC9;
+    color: #c7393d;
+}
+
+h2 {
+    color: #DF2E38;
+    font-size: 26pt;
+    margin: 10px;
+}
+
+h3 {
+    font-weight: 800;
+    font-size: larger;
+    padding: 5px;
+}
+
+input[type=text] {
+    padding: 5px 3px;
+    margin-left: 10px;
+    background-color: #F9DBBB;
+    text-align: center;
+}
+
+input[type=submit] {
+    padding: 5px 5px;
+    background-color: #c7393d;
+    color: #F9DBBB;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+
+}
+
+
+/* Don't leave a space between input and its type!! This is important and without it code will NOT work */
