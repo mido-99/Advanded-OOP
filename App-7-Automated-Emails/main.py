@@ -1,41 +1,44 @@
+import yagmail
 from dotenv import dotenv_values
-from pprint import pprint
-import requests
-
-# Import Environment variables from .env file
-env = dotenv_values()
-api = env["api_news"]
+import pandas
+from news_feed import NewsFeed
 
 
-class NewsFeed:
-    '''Generate Recent News Feed for personal interests and send them as an email'''
+# Create a sender email instance
+password = dotenv_values()["moh_pass"]
+email = yagmail.SMTP("momhahah9@gmail.com", password=password)
+
+# Get email addresses from database
+df = pandas.read_excel("people.xlsx")
+
+
+for index, row in df.iterrows():
     
-    base_url = "https://newsapi.org/v2/everything?"
+    # Create the news feed
+    news = NewsFeed(topic=row['Interest']).get()
     
-    def __init__(self, topic="NASA", from_date='2023-06-15', to_date='2023-06-20', lang='en'):
-        self.topic = topic
-        self.from_date = from_date
-        self.to_date = to_date
-        self.lang = lang
+    # Send email to each person with their interest
+    email.send(to=row["Email"], 
+            subject=f"Today's News about {row['Interest']}!", 
+            contents=f"Hi {row['Name']}\n"\
+                    f"These are some news about {row['Interest']} we've collected for you.\n\n"\
+                    f"{news}")
 
-    def get(self, **kwargs):
-        # Get the response content in json format
-        res = requests.get(f"{self.base_url}qInTitle={self.topic}"\
-                            f"&from={self.from_date}&to={self.to_date}"\
-                            f"&Language={self.lang}&apiKey={api}")
 
-        articles = res.json()['articles']
-        
-        # Extract desired data & create the email body
-        email_body = ''
-        
-        for article in articles:
-            title = article['title']
-            url = article['url']
-            
-            email_body += f"{title}\n{url}\n\n"
-        
-        return email_body
 
-news = NewsFeed().get()
-print(news)
+
+
+
+
+
+
+
+
+
+# df = pandas.DataFrame([["Name", "Email", "Interest"],
+#                         ["Soso", "lihevo4293@anwarb.com", "Space"],
+#                         ["Lolo", "xzavier.edel@donebyngle.com", 'Football'],
+#                         ["Toto", "pawefibe@afia.pro", "Maths"]])
+
+# df.to_excel("newpeople.xlsx", header=False, index=False)
+
