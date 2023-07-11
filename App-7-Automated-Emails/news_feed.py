@@ -26,6 +26,9 @@ class NewsFeed:
         articles = res.json()['articles']
         
         # Extract desired data & create the email body
+        return self._build_email(articles)
+
+    def _build_email(self, articles):
         email_body = ''
         
         for article in articles:
