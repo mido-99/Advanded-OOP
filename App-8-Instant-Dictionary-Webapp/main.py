@@ -4,13 +4,20 @@ import justpy as jp
 # @jp.SetRoute('/')
 def home():
     wp = jp.WebPage()
-    dad = jp.Div(a= wp, classes='bg-gray-200 h-screen text-2xl p-8')
+    # main div for the whole page. Used for fullscreen bg color and padding
+    dad = jp.Div(a= wp, classes='bg-gray-200 h-screen text-xl p-8')
     
-    jp.Div(a=dad, text="Hello from first Jp app!", classes='text-green-600')
-    jp.Input(a=dad, placeholder='IIINNN', classes='form-input border border-blue-400 m-10 '
-            'rounded')
-    jp.Button(a=dad, text="press ME !", classes='hover:bg-white hover:text-red-400 rounded '
-            'border border-blue-400')
+    div1 = jp.Div(a=dad, classes='grid grid-cols-2 my-4 gap-6')
+    jp.Input(a=div1, placeholder='Type in', classes='border-4 border-blue-400'
+            ' rounded-l')
+    jp.Input(a=div1, placeholder='An input', classes='form-input border-4 border-blue-400')
+    jp.Div(a=div1, text="Hello from first Jp app!", classes='text-green-600')
+    jp.Div(a=div1, text="Trial elements", classes='text-green-600')
+    
+    div2 = jp.Div(a=dad, classes='grid grid-cols-2 gap-6 justify-items-center')
+    jp.Button(a=div2 , text="press ME !", classes='hover:bg-white hover:text-red-400 rounded'
+            ' border border-blue-400 w-1/2 ')
+    jp.Div(a=div2, text="Second div", classes='text-red-600')
     return wp
 
 
