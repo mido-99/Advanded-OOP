@@ -1,4 +1,5 @@
 import justpy as jp
+import definition
 
 class Home():
     path = '/'
@@ -24,7 +25,13 @@ class Home():
     
     @staticmethod
     def get_def(widget, msg):
-        widget.definition.text = 'Boom'
+        final_def = definition.Definition(widget.term.value).get()
+        
+        if isinstance(final_def, tuple):
+            final_str = '\n'.join(f'{i+1}) {string}' for i, string in enumerate(final_def))
+        else:
+            final_str = final_def    
+        widget.definition.text = final_str
 
 
 """
