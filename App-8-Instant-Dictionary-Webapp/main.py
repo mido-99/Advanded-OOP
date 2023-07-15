@@ -6,7 +6,7 @@ from webapp.about import About
 jp.Route(Home.path, Home.serve)
 jp.Route(About.path, About.serve)
 
-jp.justpy(port=8001)
+jp.justpy()
 
 """
 When JustPy executes the passed serve method it doesn't intanimate an instance of this object;

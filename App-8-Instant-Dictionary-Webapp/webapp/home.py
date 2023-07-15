@@ -13,19 +13,18 @@ class Home():
         jp.Div(a= dad, text='Type any word or phrase ', classes='')
         
         inp_div = jp.Div(a= dad, classes='grid grid-cols-2 gap-4 m-8')
-        term = jp.Input(a=inp_div, placeholder='Type here...', classes='border-4 rounded-md'
-                        ' bg-gray-100 focus:bg-white focus:border-purple-600 focus:outline-none'
-                        ' border-purple-400')
         definition = jp.Div(a=dad, text='Definition here', classes='border-8 border-purple-400 h-40'
                         ' border-double')
-        btn = jp.Button(a=inp_div, text="what does this mean?", classes='border-4 border-purple-400'
-                        ' rounded-md outline-none', 
-                        click=cls.get_def, term=term, definition=definition)
+        term = jp.Input(a=inp_div, classes='border-4 rounded-md'
+                        ' bg-gray-100 focus:bg-white focus:border-purple-600 focus:outline-none'
+                        ' border-purple-400', definition=definition)
+        term.on('input', cls.get_def)
+        
         return wp
     
     @staticmethod
     def get_def(widget, msg):
-        final_def = definition.Definition(widget.term.value).get()
+        final_def = definition.Definition(widget.value).get()
         
         if isinstance(final_def, tuple):
             final_str = '\n'.join(f'{i+1}) {string}' for i, string in enumerate(final_def))
