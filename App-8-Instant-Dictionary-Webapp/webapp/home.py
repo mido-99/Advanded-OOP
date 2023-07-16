@@ -13,11 +13,11 @@ class Home():
         jp.Div(a= dad, text='Type any word or phrase ', classes='')
         
         inp_div = jp.Div(a= dad, classes='grid grid-cols-2 gap-4 m-8')
-        definition = jp.Div(a=dad, text='Definition here', classes='border-8 border-purple-400 h-40'
+        definition = jp.Div(a=dad, text='Definition here', classes='border-8 border-purple-300 h-40'
                         ' border-double')
         term = jp.Input(a=inp_div, classes='border-4 rounded-md'
-                        ' bg-gray-100 focus:bg-white focus:border-purple-600 focus:outline-none'
-                        ' border-purple-400', definition=definition)
+                        ' bg-gray-100 focus:bg-white focus:border-purple-400 focus:outline-none'
+                        ' border-purple-300', definition=definition)
         term.on('input', cls.get_def)
         
         return wp
