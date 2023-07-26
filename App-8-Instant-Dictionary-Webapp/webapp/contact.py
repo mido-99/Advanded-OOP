@@ -2,8 +2,8 @@ import justpy as jp
 from webapp import layout
 
 
-class About():
-    path = '/about'
+class Contact():
+    path = '/contact'
     
     @classmethod
     def serve(cls, req):
@@ -16,7 +16,7 @@ class About():
         
         # Page-specific content
         dad = jp.Div(a=container, classes='bg-gray-200 h-screen text-lg p-8')
-        jp.Div(a=dad, text='This is about page', classes='text-3xl')
-        jp.Div(a=dad, text='This is bigger div ', classes='text-6xl')
+        jp.Strong(a=dad, text='For Contact and Inquiries', classes='text-2xl')
+        jp.P(a=dad, text='balblabalblab.bom ', classes='text-xl underline-offset-2')
         
         return wp

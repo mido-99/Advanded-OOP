@@ -2,9 +2,11 @@ import justpy as jp
 
 from webapp.home import Home
 from webapp.about import About
+from webapp.contact import Contact
 
 jp.Route(Home.path, Home.serve)
 jp.Route(About.path, About.serve)
+jp.Route(Contact.path, Contact.serve)
 
 jp.justpy()
 
