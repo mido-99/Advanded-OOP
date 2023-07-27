@@ -1,8 +1,9 @@
 import justpy as jp
 from webapp import layout
+from webapp import page
 
 
-class Contact():
+class Contact(page.Page):
     path = '/contact'
     
     @classmethod
