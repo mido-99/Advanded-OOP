@@ -23,6 +23,8 @@ class LayoutDefault(jp.QLayout):
         jp.Br(a=qlist)
         jp.A(a=qlist, href='/contact', text='Contact us', classes= nav_a_classees)
         jp.Br(a=qlist)
+        jp.A(a=qlist, href='/doc', text='Docs', classes= nav_a_classees)
+        jp.Br(a=qlist)
         
         jp.QBtn(dense=True, flat=True, round=True, icon="menu",
                             click=self.move_drawer, a=toolbar, drawer=drawer)

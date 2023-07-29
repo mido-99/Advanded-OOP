@@ -1,0 +1,2 @@
+In this section I should have built an api for our previous app "Instant Web App Dictionary", But as it shares most of its dependencies and packages; I've choosen to just make an api file in that app's dir.
+It has all the docs for the api app

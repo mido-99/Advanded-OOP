@@ -5,16 +5,14 @@ from webapp import page
 from webapp.home import Home
 from webapp.about import About
 from webapp.contact import Contact
+from webapp.api import Api
+from webapp.doc import Doc
 
 imports = globals() #*
 
-for value in list(imports.values()): #*2
-    if (
-        inspect.isclass(value)
-        and issubclass(value, page.Page)
-        and value is not page.Page
-    ):
-        jp.Route(value.path, value.serve)
+for webpage in list(imports.values()): #*2
+    if hasattr(webpage, 'path') and hasattr(webpage, 'serve'):
+        jp.Route(webpage.path, webpage.serve)
 
 jp.justpy()
 
