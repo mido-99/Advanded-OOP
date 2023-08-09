@@ -1,4 +1,5 @@
 import justpy as jp
+import requests
 import definition
 from webapp import layout
 from webapp import page
@@ -10,7 +11,7 @@ class Home(page.Page):
     @classmethod
     def serve(cls, req):
         wp = jp.QuasarPage(tailwind=True)
-
+        
         # initialize webpage
         wp = jp.QuasarPage(tailwind=True)
         
@@ -18,7 +19,7 @@ class Home(page.Page):
         lay = layout.LayoutDefault(a=wp)
         container = jp.QPageContainer(a=lay)
         dad = jp.Div(a= container, classes='bg-gray-200 h-screen text-xl p-8')
-
+        
         # Page description
         jp.Div(a= dad, text='Instant Dictionary', classes='text-4xl font-italic')
         jp.Div(a= dad, text='Type any word or phrase ', classes='')
@@ -35,7 +36,8 @@ class Home(page.Page):
         term.on('input', cls.get_def)
         
         return wp
-    
+
+# Works:
     @staticmethod
     def get_def(widget, msg):
         final_def = definition.Definition(widget.value).get()
@@ -46,6 +48,24 @@ class Home(page.Page):
             final_str = final_def    
         widget.definition.text = final_str
 
+
+#! Non-working code:
+"""
+    @staticmethod
+    def get_def(widget, msg):
+        
+        print("get_def started")  # Debug message
+        req = requests.get(f"http://127.0.0.1:8000/api?w={widget.value}")
+        print("Request sent")  # Debug message
+        data = req.json()
+        print("Response received")  # Debug message
+        
+        # final_def = definition.Definition(widget.value).get()
+        widget.definition.text = ''.join(data['word'])        
+"""
+#! An issue is occuring during sending request to the api, don't know why but it stucks
+#! Otherwise everything should work and we can use the api to get word's  definitions, 
+#! rather than using Definition class directly.
 
 """
 #* REMEMBER that if we use self like this:

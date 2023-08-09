@@ -16,9 +16,7 @@ class Api():
             word:defined
         }
         
-        defined = json.dumps(resp)
-        wp.html = resp
-        
+        wp.html = json.dumps(resp)
         return wp
 
 
