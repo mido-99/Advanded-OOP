@@ -39,10 +39,10 @@ NOTE you have to explicitly import the pages classes earlier too
 
 *2 What's going on here is that I'm trying to apply a filter on the modules imported by globals()
 - This filter checks if it has a 'path' property (which is the case in our page objects).
-As this  filter changes the dictionary size (cause not all modules in dict have path); 
+As this filter changes the dictionary size (cause not all modules in dict have path); 
 it raises an error:  RuntimeError: dictionary changed size during iteration
-- So to fix this we can either create a copy of our dict -so as loop isn't affected when filter
-is applied- Or to create a list of dict values to achieve the same goal
+- So to fix this we can either create a copy of our dict -so that loop isn't affected 
+when filter is applied- Or to create a list of dict values to achieve the same goal
 >>> for value in list(imports.values()):
 >>> for key, value in list(imports.copy()).items():
 
