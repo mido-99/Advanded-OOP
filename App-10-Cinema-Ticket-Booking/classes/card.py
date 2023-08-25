@@ -1,5 +1,6 @@
 import sqlite3
-from seat import Seat
+# from seat import Seat
+[1, 1253, 3416 , 132]
 
 class Card:
     """Card object with info about user's card like: number, cvc number, balance, etc.."""
@@ -7,7 +8,7 @@ class Card:
 
     def __init__(self, number):
         self.number = number
-        self._validate_card()
+        self.valid()
     
     def _get_info(self):  # sourcery skip: use-named-expression
         '''Get information about Card from database'''
@@ -21,7 +22,7 @@ class Card:
         connection.close()
         return result
     
-    def _validate_card(self):  # sourcery skip: use-named-expression
+    def valid(self):  # sourcery skip: use-named-expression
         '''Vallidate if the card exists'''
         
         result = self._get_info()
@@ -49,10 +50,9 @@ class Card:
             return False #"Not enough balance to purchase!"
 
 # card = Card(12345678)
-# print(card._validate_card())
+# print(card.valid())
 
 # seat1 = Seat("A2")
 
 # print(card.buy(seat1))
 # print(seat1.book(card))
-

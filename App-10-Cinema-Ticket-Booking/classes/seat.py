@@ -1,12 +1,13 @@
 import sqlite3
 
+
 class Seat:
     """A Seat in cinema! with its data of course: id, booked, price, and so"""
     database = 'cinema.db'
     
     def __init__(self, seat_id):
         self.seat_id = seat_id
-        self._validate_card()
+        self.valid()
     
     def _get_info(self):   # sourcery skip: assign-if-exp, remove-unreachable-code, use-named-expression
         '''Check whether this seat is free or booked'''
@@ -20,7 +21,7 @@ class Seat:
         connection.close()
         return result
         
-    def _validate_card(self):  # sourcery skip: use-named-expression
+    def valid(self):  # sourcery skip: use-named-expression
         '''Vallidate if the card exists'''
         
         result = self._get_info()
@@ -52,6 +53,6 @@ class Seat:
             
 
 # seat1 = Seat("A1")
-# print(seat1._validate_card())
+# print(seat1.valid())
 # print(seat1.taken)
 # print(seat1.is_free())
