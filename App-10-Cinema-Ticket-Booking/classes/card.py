@@ -23,7 +23,9 @@ class Card:
         return result
     
     def valid(self):  # sourcery skip: use-named-expression
-        '''Vallidate if the card exists'''
+        '''Vallidate the card: if the card exists returns its properties,
+        else returns False
+        '''
         
         result = self._get_info()
         if result:
@@ -45,6 +47,7 @@ class Card:
             connection.commit()
             connection.close()
             
+            seat.book()
             return True #"Success!"
         else:
             return False #"Not enough balance to purchase!"
@@ -55,4 +58,3 @@ class Card:
 # seat1 = Seat("A2")
 
 # print(card.buy(seat1))
-# print(seat1.book(card))

@@ -22,7 +22,9 @@ class Seat:
         return result
         
     def valid(self):  # sourcery skip: use-named-expression
-        '''Vallidate if the card exists'''
+        '''Vallidate the seat: if the seat exists and free returns its properties 
+        from database, else returns False
+        '''
         
         result = self._get_info()
         if result:
@@ -36,21 +38,16 @@ class Seat:
         """Returns True if seat is free, just opposite to taken"""
         return not self.taken
     
-    def book(self, card):  # sourcery skip: use-named-expression
-        bought = card.buy(self)
+    def book(self):  # sourcery skip: use-named-expression
+        '''Book the Seat purchased in database'''
         
-        if bought:
-            connection = sqlite3.connect(self.database)
-            connection.execute(
-            '''UPDATE seat SET taken=? WHERE seat_id=?''', 
-            (1, self.seat_id)
-            )
-            connection.commit()
-            connection.close()
-            return True
-        else:
-            return False
-            
+        connection = sqlite3.connect(self.database)
+        connection.execute(
+        '''UPDATE seat SET taken=? WHERE seat_id=?''', 
+        (1, self.seat_id)
+        )
+        connection.commit()
+        connection.close()
 
 # seat1 = Seat("A1")
 # print(seat1.valid())
