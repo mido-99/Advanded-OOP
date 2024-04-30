@@ -1,6 +1,5 @@
 from classes.card import Card
 from classes.seat import Seat
-from classes.user import User
 from classes.ticket import Ticket
 
 

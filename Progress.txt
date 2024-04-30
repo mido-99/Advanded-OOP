@@ -1,5 +1,2 @@
 Advanced_OOP:
-48
-1
-
-and 3 git sections
+Finished
